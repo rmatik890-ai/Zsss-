@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>亗🅜🅢彡𝗠𝗔𝐇𝗜𝗡[𝙊𝙒𝙉𝙀𝙍</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      background: linear-gradient(135deg, #0e0e0e, #1a1a1a);
+      color: #ffffff;
+      font-family: 'Outfit', sans-serif;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* --- LOGIN PAGE STYLES --- */
+    #login-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #00ffc8;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.5);
+      margin-bottom: 20px;
+      background-image: url('https://ik.imagekit.io/ljcih9oti/IMG_20251202_200927_579.jpg'); /* Default Profile */
+      background-size: cover;
+    }
+    .login-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #00ffc8;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .login-input {
+      background: #1f1f1f;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 25px;
+      width: 80%;
+      max-width: 300px;
+      font-size: 16px;
+      outline: none;
+      text-align: center;
+      margin-bottom: 15px;
+      transition: 0.3s;
+    }
+    .login-input:focus {
+      border-color: #00ffc8;
+      box-shadow: 0 0 10px rgba(0, 255, 200, 0.2);
+    }
+    .login-btn {
+      background: linear-gradient(45deg, #0088cc, #00ffc8);
+      border: none;
+      color: #000;
+      padding: 12px 40px;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      width: 80%;
+      max-width: 300px;
+    }
+    .admin-link {
+      color: #0088cc;
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px dashed #0088cc;
+      padding-bottom: 2px;
+    }
+
+    /* --- DASHBOARD STYLES --- */
+    #dashboard {
+      display: none; /* Hidden by default */
+      width: 100%;
+      max-width: 500px;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    
+    .header {
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+      color: #00ffc8;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+    .sub-header {
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 15px;
+      background: #333;
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    /* Stats Box (Win/Loss) */
+    .stats-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .stat-box {
+      flex: 1;
+      background: #1f1f1f;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #333;
+    }
+    .stat-label { font-size: 12px; color: #aaa; }
+    .stat-value { font-size: 20px; font-weight: bold; }
+    .stat-win { color: #00ff88; }
+    .stat-loss { color: #ff4c4c; }
+
+    /* Timer & Period */
+    .timer-card {
+      background: #1f1f1f;
+      border-radius: 14px;
+      box-shadow: 0 0 10px rgba(0,255,200,0.1);
+      padding: 15px;
+      margin-bottom: 15px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .timer-circle {
+      font-size: 40px;
+      font-weight: bold;
+      color: #fff;
+      margin: 10px 0;
+    }
+    .timer-label {
+      font-size: 12px;
+      color: #00ffc8;
+      text-transform: uppercase;
+    }
+    .period-text {
+      font-size: 14px;
+      color: #ccc;
+    }
+.admin-notice {
+        background: #fff3cd;
+        color: #856404;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-size: 14px;
+        text-align: center;
+        border: 1px solid #ffeeba;
+    }
+
+    .admin-notice a {
+        color: #856404;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .admin-btn {
+        display: block;
+        width: 100%;
+        background: #007bff;
+        color: #fff;
+        padding: 10px;
+        margin-top: 12px;
+        text-align: center;
+        border-radius: 8px;
+        font-size: 15px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .admin-btn:hover {
+        background: #0069d9;
+    }
+    /* Prediction Box */
+    .prediction-box {
+      background: linear-gradient(135deg, #0a0a0a, #151515);
+      border: 2px solid #00ffcc44;
+      color: #00ffcc;
+      font-size: 18px;
+      padding: 20px;
+      border-radius: 14px;
+      text-align: center;
+      margin-bottom: 15px;
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.1);
+    }
+    .confidence-level {
+      font-size: 13px;
+      color: #888;
+      margin-top: 5px;
+    }
+
+    /* History Table */
+    .history-container {
+      background: #1b1b1b;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 60px; /* Space for TG button */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      background-color: #292929;
+      color: #FFD700;
+      padding: 12px 8px;
+      font-size: 13px;
+    }
+    td {
+      padding: 10px 8px;
+      font-size: 13px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot.green { background: lime; box-shadow: 0 0 5px lime; }
+    .dot.red { background: red; box-shadow: 0 0 5px red; }
+    .dot.violet { background: violet; }
+    
+    .big-badge { color: #ffb700; font-weight: bold; }
+    .small-badge { color: #00ccff; font-weight: bold; }
+
+    /* Floating Telegram Button */
+    .telegram-button {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #0088cc;
+      box-shadow: 0 0 20px #00f0ff;
+      animation: pulse 2s infinite;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .telegram-button img { width: 35px; height: 35px; }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(0, 240, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  
+<div id="login-screen">
+    <div class="profile-pic"></div> <!-- Placeholder for Profile Pic -->
+    <div class="login-title">亗🅜🅢彡𝗠𝗔𝐇𝗜𝗡[𝙊𝙒𝙉𝙀𝙍</div>
+    
+    <input type="password" id="passwordInput" class="login-input" placeholder="Enter Password">
+    <button onclick="checkLogin()" class="login-btn">LOGIN NOW</button>
+
+    <!-- 🔐 Admin Button -->
+    <a href="https://t.me/mahin_owner_ms_tm_1" target="_blank" class="admin-btn">
+        GET PASSWORD (ADMIN)
+    </a>
+</div>
+
+  <!-- MAIN DASHBOARD -->
+  <div id="dashboard">
+    <!-- Header with Profile -->
+    <div style="text-align: center; margin-bottom: 10px;">
+       <img src="https://ik.imagekit.io/ljcih9oti/IMG_20251202_200927_579.jpg" alt="Profile" style="width:50px; border-radius:50%; border:2px solid #00ffc8;">
+    </div>
+    <div class="header">亗🅜🅢彡𝗠𝗔𝐇𝗜𝗡[𝙊𝙒𝙉𝙀𝙍</div>
+    <div style="text-align: center;"><span class="sub-header">1 Minute Signal</span></div>
+
+    <!-- Win/Loss Stats -->
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-label">TOTAL WINS</div>
+        <div class="stat-value stat-win" id="winCount">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">TOTAL LOSS</div>
+        <div class="stat-value stat-loss" id="lossCount">0</div>
+      </div>
+    </div>
+
+    <!-- Timer & Period -->
+    <div class="timer-card">
+      <h2 id="currentPeriod" class="period-text">Period: Loading...</h2>
+      <div class="timer-circle" id="secondsTimer">--</div>
+      <div class="timer-label">Seconds Remaining</div>
+    </div>
+
+    <!-- Prediction Display -->
+    <div class="prediction-box" id="predictionBox">
+      Analyzing Market...
+    </div>
+
+    <!-- History Table -->
+    <div class="history-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Period</th>
+            <th>Number</th>
+            <th>Big/Small</th>
+            <th>Color</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody">
+          <tr><td colspan="4">Loading History...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Telegram Floating Button -->
+  <a href="https://t.me/AMAR_CLUB_MS_TEAM_1" target="_blank" class="telegram-button" title="Join Channel">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" />
+  </a>
+
+  <script>
+    // --- LOGIN LOGIC ---
+    function checkLogin() {
+      const pass = document.getElementById('passwordInput').value;
+      if (pass === 'Mahin5730') {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        startApp(); // Start the game logic only after login
+      } else {
+        alert('Wrong Password! Please contact Admin.');
+      }
+    }
+
+    // --- GAME LOGIC ---
+    const CURRENT_API = 'https://api.bdg88zf.com/api/webapi/GetGameIssue';
+    const HISTORY_API = 'https://draw.ar-lottery01.com/WinGo/WinGo_1M/GetHistoryIssuePage.json';
+
+    let winCounter = 0;
+    let lossCounter = 0;
+
+    const REQUEST_DATA = {
+      typeId: 1,
+      language: 0,
+      random: "e7fe6c090da2495ab8290dac551ef1ed",
+      signature: "1F390E2B2D8A55D693E57FD905AE73A7",
+      timestamp: 1723726679
+    };
+
+    function getBigSmall(num) {
+      return num >= 5 ? 'Big' : 'Small';
+    }
+
+    function getColorType(num) {
+      if ([1,3,7,9].includes(num)) return 'Green';
+      if ([2,4,6,8].includes(num)) return 'Red';
+      return 'Violet';
+    }
+
+    function getPrediction(history) {
+      // Logic unchanged as requested
+      const sizeList = history.map(h => getBigSmall(parseInt(h.number)));
+      const bigCount = sizeList.filter(s => s === 'Big').length;
+      const smallCount = sizeList.length - bigCount;
+
+      let streakSize = sizeList[0];
+      let streakCount = 1;
+      for (let i = 1; i < sizeList.length; i++) {
+        if (sizeList[i] === streakSize) streakCount++;
+        else break;
+      }
+
+      let predicted = '';
+      if (bigCount > smallCount + 2) predicted = 'Small';
+      else if (smallCount > bigCount + 2) predicted = 'Big';
+      else predicted = sizeList[0] === 'Big' ? 'Small' : 'Big';
+
+      if (streakCount >= 3) {
+        predicted = streakSize === 'Big' ? 'Small' : 'Big';
+      }
+
+      return predicted;
+    }
+
+    function generateConfidence() {
+      return Math.floor(Math.random() * 20) + 80; // 80% to 99%
+    }
+
+    // --- TIMER LOGIC (Seconds Only) ---
+    function startTimer() {
+      setInterval(() => {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const remaining = 60 - seconds;
+        
+        // Update timer display
+        const displaySec = remaining === 60 ? 0 : remaining;
+        document.getElementById('secondsTimer').innerText = displaySec < 10 ? '0' + displaySec : displaySec;
+      }, 1000);
+    }
+
+    async function loadCurrentPeriod() {
+      try {
+        const res = await fetch(CURRENT_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(REQUEST_DATA)
+        });
+        const data = await res.json();
+        return data.data?.issueNumber || "Unavailable";
+      } catch {
+        return "Unavailable";
+      }
+    }
+
+    async function loadAndPredict() {
+      const currentPeriod = await loadCurrentPeriod();
+      document.getElementById('currentPeriod').innerText = "Period: " + currentPeriod;
+
+      try {
+        const res = await fetch(HISTORY_API + '?ts=' + Date.now());
+        const data = await res.json();
+        const list = data.data.list.slice(0, 10); // Last 10 results
+
+        // Render History Table
+        const tbody = document.getElementById('resultBody');
+        tbody.innerHTML = '';
+        list.forEach(item => {
+          const num = parseInt(item.number);
+          const size = getBigSmall(num);
+          const color = getColorType(num).toLowerCase();
+          
+          let sizeClass = size === 'Big' ? 'big-badge' : 'small-badge';
+
+          tbody.innerHTML += `
+            <tr>
+              <td>${item.issueNumber.slice(-4)}</td>
+              <td style="color:${color === 'green' ? '#0f0' : color === 'red' ? '#f00' : '#d0f'}; font-weight:bold;">${num}</td>
+              <td class="${sizeClass}">${size}</td>
+              <td><span class="dot ${color}"></span></td>
+            </tr>`;
+        });
+
+        // Prediction & Result Checking
+        const lastShownPeriod = localStorage.getItem("lastShownPeriod");
+        
+        // If we move to a new period, check if we won the previous one
+        if (currentPeriod !== lastShownPeriod) {
+            
+            // 1. Check Previous Result (Win/Loss)
+            const lastResultItem = list[0]; // The most recent result
+            const actualResult = getBigSmall(parseInt(lastResultItem.number));
+            const myLastPrediction = localStorage.getItem("lastPrediction");
+            
+            if (myLastPrediction) {
+                if (myLastPrediction === actualResult) {
+                    winCounter++;
+                    // Optional: Toast message for Win
+                } else {
+                    lossCounter++;
+                    // Optional: Toast message for Loss
+                }
+                // Update UI Counters
+                document.getElementById('winCount').innerText = winCounter;
+                document.getElementById('lossCount').innerText = lossCounter;
+            }
+
+            // 2. Make New Prediction
+            const prediction = getPrediction(list);
+            const confidence = generateConfidence();
+
+            document.getElementById("predictionBox").innerHTML = `
+              <div style="font-size:24px; font-weight:bold; margin-bottom:5px;">${prediction}</div>
+              <div class="confidence-level">Confidence: ${confidence}%</div>
+            `;
+
+            // Save for next round
+            localStorage.setItem("lastPrediction", prediction);
+            localStorage.setItem("lastShownPeriod", currentPeriod);
+        }
+
+      } catch (err) {
+        console.error("API Error", err);
+      }
+    }
+
+    // --- INITIALIZER ---
+    function startApp() {
+      startTimer(); // Start the seconds countdown
+      loadAndPredict(); // Initial load
+      setInterval(loadAndPredict, 3000); // Refresh data every 3 seconds
+    }
+
+    // Note: startApp() is called inside checkLogin()
+  </script>
+
+</body>
+</html>
